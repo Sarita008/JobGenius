@@ -4,196 +4,142 @@ import { getUserProfileAPI } from "../../apis/user/usersAPI";
 import StatusMessage from "../Alert/StatusMessage";
 
 const Dashboard = () => {
-  //get the user profile
   const { isLoading, isError, data, error } = useQuery({
     queryFn: getUserProfileAPI,
     queryKey: ["profile"],
   });
 
-  //dsiplay loading
   if (isLoading) {
-    console.log("check loading");
-    
     return <StatusMessage type="loading" message="Loading please wait..." />;
   }
 
-  //check for error
-  else if (isError) {
+  if (isError) {
     return (
       <StatusMessage type="error" message={error?.response?.data?.message} />
     );
-  } else {
-    return (
-      <div className="mx-auto p-4 bg-gray-900 w-screen">
-        <h1 className="text-3xl font-bold text-center mb-8 text-blue-600">
-          User Dashboard
-        </h1>
+  }
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  return (
+    <div className="relative isolate overflow-hidden bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter min-h-screen">
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
+
+      <div className="px-6 pt-10 pb-24 sm:px-6 lg:px-8">
+      <h1 className="text-3xl sm:text-4xl font-bold text-center text-white mb-8 pt-16 sm:pt-24">
+          Welcome to User <span className="text-indigo-400">Dashboard !</span>
+       </h1>
+
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800">
           {/* Profile Section */}
-          <div className="mb-6 bg-white p-4 shadow rounded-lg">
+          <div className="bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
-            <div>
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="username"
-                >
-                  Name
-                </label>
-                <p
-                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
-                  id="username"
-                >
-                  {data?.user?.username}
-                </p>
-              </div>
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="email"
-                >
-                  Email
-                </label>
-                <p
-                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
-                  id="email"
-                >
-                  {data?.user?.email}
-                </p>
-              </div>
-            </div>
+            <p className="mb-2"><strong>Name:</strong> {data?.user?.username}</p>
+            <p><strong>Email:</strong> {data?.user?.email}</p>
           </div>
 
           {/* Credit Usage Section */}
-          <div className="mb-6 bg-white p-4 shadow rounded-lg">
+          <div className="bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Credit Usage</h2>
-            <div>
-              <p className="mb-4">
-                Monthly Credit: {data?.user?.monthlyRequestCount}
-              </p>
-              <p className="mb-4">Credit Used: {data?.user?.apiRequestCount}</p>
-              <p className="mb-4">
-                Credit Remaining:{" "}
-                {data?.user?.monthlyRequestCount - data?.user?.apiRequestCount}
-              </p>
-              <p className="mb-4">
-                Next Billing Date:{" "}
-                {data?.user?.nextBillingDate
-                  ? data?.user?.nextBillingDate
-                  : "No Billing date"}
-              </p>
-            </div>
+            <p className="mb-2"> <strong> Monthly Credit: </strong> {data?.user?.monthlyRequestCount}</p>
+            <p className="mb-2"> <strong> Credit Used: </strong> {data?.user?.apiRequestCount}</p>
+             <p className="mb-2"> <strong>
+              Credit Remaining:</strong>{" "}
+              {data?.user?.monthlyRequestCount - data?.user?.apiRequestCount}
+            </p>
+            <p> <strong>
+              Next Billing Date: </strong>{" "}
+              {data?.user?.nextBillingDate
+                ? new Date(data?.user?.nextBillingDate).toDateString()
+                : "No Billing date"}
+            </p>
           </div>
 
-          {/* Payment and Plans Section */}
-          <div className="mb-6 bg-white p-4 shadow rounded-lg">
+          {/* Payment & Plan Section */}
+          <div className="bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Payment & Plans</h2>
-            <div>
-              <p className="mb-4">
-                Current Plan: {data?.user?.subscriptionPlan}
-              </p>
-              {data?.user?.subscriptionPlan === "Trial" && (
-                <p className="border mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                  Trial: 1000 monthly request
-                </p>
-              )}
+            <p className="mb-2">
+              <strong> Current Plan:</strong>  {data?.user?.subscriptionPlan}
+            </p>
+           {["Trial", "Free", "Basic", "Premium"].includes(data?.user?.subscriptionPlan) && (
+            <p className="mb-4">
+              {{
+                Trial: <><strong>Trial:</strong> 1000 monthly requests</>,
+                Free: <><strong>Free:</strong> 5 monthly requests</>,
+                Basic: <><strong>Basic:</strong> 50 monthly requests</>,
+                Premium: <><strong>Premium:</strong> 100 monthly requests</>,
+              }[data?.user?.subscriptionPlan]}
+            </p>
+           )}
 
-              {data?.user?.subscriptionPlan === "Free" && (
-                <p className="border mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                  Free: 5 monthly request
-                </p>
-              )}
-              {data?.user?.subscriptionPlan === "Basic" && (
-                <p className="border mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                  Basic: 50 monthly request
-                </p>
-              )}
-              {data?.user?.subscriptionPlan === "Premium" && (
-                <p className="border mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                  Premium: 100 monthly request
-                </p>
-              )}
-              <Link
-                to="/plans"
-                className=" py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Upgrade Plan
-              </Link>
-            </div>
+            <Link
+              to="/plans"
+              className="inline-block py-2 px-4 mt-2 rounded-md bg-indigo-500 text-white font-medium hover:bg-indigo-400 transition"
+            >
+              Upgrade Plan
+            </Link>
           </div>
 
-          {/* Trial Information Section */}
-          <div className="mb-6 bg-white p-4 shadow rounded-lg">
+          {/* Trial Info */}
+          <div className="bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Trial Information</h2>
-            <div>
-              <p className="mb-4">
-                Trial Status:{" "}
-                {data?.user?.trialActive ? (
-                  <span className="text-green-500">Active</span>
-                ) : (
-                  <span className="text-yellow-600">Inactive</span>
-                )}
-              </p>
-              <p className="mb-4">
-                Expires on: {new Date(data?.user?.trialExpires).toDateString()}
-              </p>
-              <Link
-                to="/plans"
-                className=" py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Upgrade to Premium
-              </Link>
-            </div>
+            <p className="mb-2">
+             <strong> Trial Status: </strong>{" "}
+              {data?.user?.trialActive ? (
+                <span className="text-green-600 font-semibold">Active</span>
+              ) : (
+                <span className="text-yellow-500 font-semibold">Inactive</span>
+              )}
+            </p>
+            <p> <strong> Expires on: </strong> {new Date(data?.user?.trialExpires).toDateString()}</p>
+            <Link
+              to="/plans"
+              className="inline-block py-2 px-4 mt-4 rounded-md bg-indigo-500 text-white font-medium hover:bg-indigo-400 transition"
+            >
+              Upgrade to Premium
+            </Link>
           </div>
 
-          {/* History Section */}
-          <div className="mb-6 bg-white p-4 shadow rounded-lg col-span-1 md:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-800 mb-5">
-              Payment History
-            </h2>
+          {/* Payment History */}
+          <div className="bg-white bg-opacity-90 p-6 rounded-lg shadow-md col-span-1 md:col-span-2">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Payment History</h2>
             {data?.user?.payments?.length > 0 ? (
               <ul className="divide-y divide-gray-200">
-                {/* Example History Item */}
-                {data?.user?.payments?.map((payment) => {
-                  return (
-                    <li className="py-4 hover:bg-gray-50 transition duration-150 ease-in-out">
-                      <div className="flex flex-col sm:flex-row justify-between">
-                        <div className="mb-2 sm:mb-0">
-                          <p className="text-sm font-medium text-indigo-600">
-                            {payment?.subscriptionPlan}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(payment?.createdAt).toDateString()}
-                          </p>
-                        </div>
-                        <div className="flex items-center">
-                          <p
-                            className={`text-sm fonrt-semibold ${
-                              payment?.status === "succeeded"
-                                ? "text-green-500"
-                                : "text-organge-500"
-                            }`}
-                          >
-                            {payment?.status}
-                          </p>
-                          <p className="text-sm text-gray-700 ml-4">
-                            $ {payment?.amount}
-                          </p>
-                        </div>
+                {data?.user?.payments.map((payment) => (
+                  <li key={payment._id} className="py-4">
+                    <div className="flex flex-col sm:flex-row justify-between">
+                      <div>
+                        <p className="text-indigo-600 font-medium">
+                          {payment.subscriptionPlan}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {new Date(payment.createdAt).toDateString()}
+                        </p>
                       </div>
-                    </li>
-                  );
-                })}
+                      <div className="flex items-center gap-4">
+                        <p
+                          className={`text-sm font-semibold ${
+                            payment.status === "succeeded"
+                              ? "text-green-500"
+                              : "text-green-500"
+                          }`}
+                        >
+                          {payment.status}
+                        </p>
+                        <p className="text-sm text-gray-700">$ {payment.amount}</p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
               </ul>
             ) : (
-              <h1>No Payment History</h1>
+              <p className="text-black">No Payment History</p>
             )}
           </div>
         </div>
-      </div>
-    );
-  }
+      </div>     
+    </div>
+  );
 };
 
 export default Dashboard;

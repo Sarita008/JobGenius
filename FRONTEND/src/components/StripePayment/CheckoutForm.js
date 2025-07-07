@@ -81,7 +81,9 @@ const CheckoutForm = () => {
 
 
   return (
-    <div className="bg-gray-900 h-screen -mt-4 flex justify-center items-center">
+    <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 py-12 sm:px-6 lg:px-8 flex justify-center items-center">
+     {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
       <form
         onSubmit={handleSubmit}
         className="w-96 mx-auto my-4 p-6 bg-white rounded-lg shadow-md"

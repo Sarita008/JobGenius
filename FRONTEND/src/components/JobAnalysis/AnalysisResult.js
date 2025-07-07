@@ -167,8 +167,6 @@ const AnalysisResult = ({ data }) => {
         </div>
       )}
 
-
-
       {/* Company Insights */}
       {Company_Insights && (
         <div className="bg-gray-100 p-4 rounded-lg">

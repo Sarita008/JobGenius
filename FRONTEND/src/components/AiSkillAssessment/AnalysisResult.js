@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const AnalysisResult = ({ data, onSubmitTest }) => {
-  const { message, response = [] } = data || {};
-  const [answers, setAnswers] = useState({});
+const AnalysisResult = ({ data, onSubmitTest }) => {   //AI result & AI assessment as a props pass krre h data ki form m
+  const { message, response = [] } = data || {};   
+  const [answers, setAnswers] = useState({});    // store answer 
   const [timeLeft, setTimeLeft] = useState(45 * 60); // 45 minutes in seconds
-  const [timerStarted, setTimerStarted] = useState(false);
-  const formRef = useRef();
+  const [timerStarted, setTimerStarted] = useState(false);  //timer start
+  const formRef = useRef();   
 
   const isSkillEvaluation =
     response && typeof response === "object" && "skill_evaluation" in response;
@@ -37,9 +37,9 @@ const AnalysisResult = ({ data, onSubmitTest }) => {
         submitTest();
       }
     };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);   //tabs change kiye too test submit ho jayega
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);   
     };
   }, [isSkillEvaluation]);
 
@@ -66,7 +66,7 @@ const AnalysisResult = ({ data, onSubmitTest }) => {
     return () => clearInterval(timer);
   }, [timerStarted, timeLeft, isSkillEvaluation]);
 
-  // Camera access
+  // Camera access (for camera we use navigator(it is in-built method))
   useEffect(() => {
     if (isSkillEvaluation) return;
     const videoElement = document.getElementById("cameraStream");
@@ -74,7 +74,7 @@ const AnalysisResult = ({ data, onSubmitTest }) => {
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream) => {
-          videoElement.srcObject = stream;
+          videoElement.srcObject = stream;  // here, we display video(means here we open the camera)
         })
         .catch((err) => console.error("Camera access error:", err));
     }

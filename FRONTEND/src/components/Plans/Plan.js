@@ -65,7 +65,9 @@ export default function Plans() {
   };
 
   return (
-    <div className="bg-gray-900 py-24 sm:py-32">
+  <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 pt-32 pb-12 sm:px-6 lg:px-8 flex justify-center items-start">
+     {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div> 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-base font-semibold leading-7 text-indigo-400">

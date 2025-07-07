@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import * as Yup from "yup";  
 import { Link } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUserProfileAPI } from "../../apis/user/usersAPI";
@@ -9,7 +9,7 @@ import { aiSkillAssessmentAPI } from "../../apis/googleAI/googleAI";
 import AnalysisResult from "./AnalysisResult";
 
 const AiSkillAssessment = () => {
-  const [generatedAnalysis, setGeneratedAnalysis] = useState(null);
+  const [generatedAnalysis, setGeneratedAnalysis] = useState(null);    //generated assessment
   const [resumeFile, setResumeFile] = useState(null); // Store resume for later use
 
   const { isLoading, isError, data, error } = useQuery({
@@ -77,7 +77,9 @@ const AiSkillAssessment = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-900 flex justify-center items-center p-6">
+     <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 py-12 sm:px-6 lg:px-8 flex justify-center items-center">
+     {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
       <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-2xl w-full p-6">
         <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
           AI Skill Assessment

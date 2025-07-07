@@ -86,8 +86,10 @@ const AiMockInterview = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-900 flex justify-center items-center p-6">
-      <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-2xl w-full p-6">
+   <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 py-12 sm:px-6 lg:px-8 flex justify-center items-center">
+     {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
+    <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-2xl w-full p-6 mt-8 sm:mt-16">
         <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
           AI Mock Interview
         </h2>
@@ -127,7 +129,7 @@ const AiMockInterview = () => {
           />
         )}
 
-        <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <form onSubmit={formik.handleSubmit} className="space-y-4 pt-8 sm:pt-12">
           <div>
             <label
               htmlFor="jobRole"

@@ -18,7 +18,9 @@ const FreePlanSignup = () => {
   };
   console.log(mutation);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-900 flex justify-center items-center p-6">
+    <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 py-12 sm:px-6 lg:px-8 flex justify-center items-center">
+     {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Confirm Your {planDetails.name} Plan

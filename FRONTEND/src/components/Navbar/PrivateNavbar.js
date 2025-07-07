@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { FiLogOut } from "react-icons/fi";
 import { FaCreativeCommonsShare } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { logoutAPI } from "../../apis/user/usersAPI";
 import { useAuth } from "../../AuthContext/AuthContext";
@@ -24,27 +24,26 @@ function classNames(...classes) {
 }
 
 export default function PrivateNavbar() {
-  //auth custom hook
   const { logout } = useAuth();
-  //mutation
   const mutation = useMutation({ mutationFn: logoutAPI });
-  //handle logout
+
   const handleLogout = () => {
     mutation.mutate();
     logout();
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-900">
+    <Disclosure
+      as="nav"
+      className="bg-white/10 backdrop-blur-md border-b border-white/20 shadow-sm fixed w-full z-50 font-inter"
+    >
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
-                  {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <span className="absolute -inset-0.5" />
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-100 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -54,7 +53,6 @@ export default function PrivateNavbar() {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-shrink-0 items-center">
-                  {/* logo */}
                   <Link to="/" className="text-white">
                     <FaCreativeCommonsShare className="h-10 w-10" />
                   </Link>
@@ -66,8 +64,8 @@ export default function PrivateNavbar() {
                       to={item.href}
                       className={classNames(
                         item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          ? "bg-white/20 text-white"
+                          : "text-gray-100 hover:bg-white/10 hover:text-white transition-all duration-200",
                         "rounded-md px-3 py-2 text-sm font-medium"
                       )}
                       aria-current={item.current ? "page" : undefined}
@@ -77,48 +75,34 @@ export default function PrivateNavbar() {
                   ))}
                 </div>
               </div>
+
               <div className="flex items-center">
                 <div className="flex flex-shrink-0 gap-2">
-                  <Link
-                    to="/ai-job-search"
-                    className="relative animate-bounce inline-flex items-center gap-x-1.5 rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                  >
-                    <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                    AI Job Search
-                  </Link>
+                  {[
+                    { to: "/ai-job-search", label: "AI Job Search" },
+                    { to: "/ai-skill-assessment", label: "AI Skill Assessment" },
+                    { to: "/ai-mock-interview", label: "Ai Mock Interview" },
+                    { to: "/analyse-job", label: "Analyse Job" },
+                  ].map((item) => (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      className="relative animate-bounce inline-flex items-center gap-x-1.5 rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 transition-all duration-200"
+                    >
+                      <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                      {item.label}
+                    </Link>
+                  ))}
 
-                  <Link
-                    to="/ai-skill-assessment"
-                    className="relative animate-bounce inline-flex items-center gap-x-1.5 rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                  >
-                    <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                    AI Skill Assessment
-                  </Link>
-
-                  <Link
-                    to="/ai-mock-interview"
-                    className="relative animate-bounce inline-flex items-center gap-x-1.5 rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                  >
-                    <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                    Ai Mock Interview
-                  </Link>
-
-                  <Link
-                    to="/analyse-job"
-                    className="relative animate-bounce inline-flex items-center gap-x-1.5 rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                  >
-                    <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                    Analyse Job
-                  </Link>
-                  {/* Logout */}
                   <button
                     onClick={handleLogout}
                     type="button"
-                    className="ml-2 relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    className="ml-2 inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 transition-all duration-200"
                   >
                     <FiLogOut className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </div>
+
                 <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
                   <Menu as="div" className="relative ml-3">
                     <Transition
@@ -154,7 +138,8 @@ export default function PrivateNavbar() {
             </div>
           </div>
 
-          <Disclosure.Panel className="md:hidden">
+          {/* Mobile Panel */}
+          <Disclosure.Panel className="md:hidden bg-white/5 backdrop-blur-md">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
               {navigation.map((item) => (
                 <Disclosure.Button
@@ -163,8 +148,8 @@ export default function PrivateNavbar() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-white/20 text-white"
+                      : "text-gray-100 hover:bg-white/10 hover:text-white transition-all duration-200",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}
@@ -173,13 +158,13 @@ export default function PrivateNavbar() {
                 </Disclosure.Button>
               ))}
             </div>
-            <div className="border-t border-gray-700 pb-3 pt-4">
+            <div className="border-t border-white/10 pb-3 pt-4">
               <div className="flex items-center px-5 sm:px-6">
                 <div className="ml-3">
                   <div className="text-base font-medium text-white">
                     {user.name}
                   </div>
-                  <div className="text-sm font-medium text-gray-400">
+                  <div className="text-sm font-medium text-gray-300">
                     {user.email}
                   </div>
                 </div>
@@ -190,7 +175,7 @@ export default function PrivateNavbar() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white"
                   >
                     {item.name}
                   </Disclosure.Button>

@@ -11,19 +11,19 @@ import AnalysisResult from "./AnalysisResult";
 const AiJobSearch = () => {
   const [generatedAnalysis, setGeneratedAnalysis] = useState("");
   
-  const { isLoading, isError, data, error } = useQuery({
-    queryFn: getUserProfileAPI,
+  const { isLoading, isError, data, error } = useQuery({     // "isError" means true or false(means error h ya nhi) AND "error" means error print krdega..
+    queryFn: getUserProfileAPI,   // iss fujnction (getUserProfileAPI) ko hum backend m call krre h.. & ye backend se data dera h
     queryKey: ["profile"],
   });
 
-  const mutation = useMutation({ mutationFn: aiJobSearchAPI });
+  const mutation = useMutation({ mutationFn: aiJobSearchAPI }); 
 
   const formik = useFormik({
     initialValues: {
       jobRole: "",
       resume: null
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object({     //Validation is used for required (e.g, Job role is required)
       jobRole: Yup.string().required("Job role is required"),
       resume: Yup.mixed().required("Resume is required")
     }),
@@ -32,7 +32,7 @@ const AiJobSearch = () => {
       formData.append("jobRole", values.jobRole);
       formData.append("resume", values.resume);
       
-      mutation.mutate(formData);
+      mutation.mutate(formData);   
       setGeneratedAnalysis(`Generated Analysis for job: ${mutation.data}`);
     },
   });
@@ -46,7 +46,9 @@ const AiJobSearch = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-900 flex justify-center items-center p-6">
+   <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 py-12 sm:px-6 lg:px-8 flex justify-center items-center">
+  {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
       <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-2xl w-full p-6">
         <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
           AI Job Search

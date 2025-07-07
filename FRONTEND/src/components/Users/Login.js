@@ -61,7 +61,9 @@ const Login = () => {
     }
   }, [mutation.isSuccess, login]);
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+   <div className="relative isolate min-h-screen bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter px-4 py-12 sm:px-6 lg:px-8 flex justify-center items-center">
+     {/* Dark overlay like FreeTrial */}
+  <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>  
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 m-4">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
           Login to Your Account

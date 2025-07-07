@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 
 export default function FreeTrial() {
   return (
-    <div className="relative isolate overflow-hidden bg-gray-900">
+  <div className="relative isolate overflow-hidden bg-gradient-to-r from-[#ff80b5] to-[#9089fc] font-inter">
+      {/* Dark overlay like HomeFeatures */}
+      <div className="absolute inset-0 bg-black bg-opacity-60 -z-10"></div>
       <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Supercharge Your Career with <span className="text-indigo-400">JobGenius</span>
-          </h2>
+         <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white whitespace-nowrap">
+            Supercharge Your Career with <span className="text-indigo-400">JobGenius</span>
+      </h2>
+
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
           AI-powered tools that help you craft better resumes, prepare for interviews, and track real-time job trends — all designed to land your dream job faster.
           </p>
