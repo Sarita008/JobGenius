@@ -99,6 +99,7 @@ app.use(cookieParser()); //pass the cookie automatically
 const corsOptions = {
   origin: [
     "http://localhost:3000",
+    "https://job-genius-xi.vercel.app/",
   ],
   credentials: true,
 };

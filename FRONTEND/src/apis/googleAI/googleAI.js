@@ -3,7 +3,8 @@ import axios from "axios";
 export const aiJobSearchAPI = async (formData) => {
   try {
     const response = await axios.post(
-      `http://localhost:8090/api/v1/googleai/ai-job-search`,
+      // `http://localhost:8090/api/v1/googleai/ai-job-search`,
+      "https://jobgenius-6odl.onrender.com/api/v1/googleai/ai-job-search",
       formData,
       {
         headers: {
@@ -22,7 +23,8 @@ export const aiJobSearchAPI = async (formData) => {
 export const aiMockInterviewAPI = async (formData) => {
   try {
     const response = await axios.post(
-      `http://localhost:8090/api/v1/googleai/ai-mock-interview`,
+      // `http://localhost:8090/api/v1/googleai/ai-mock-interview`,
+      "https://jobgenius-6odl.onrender.com/api/v1/googleai/ai-mock-interview",
       formData,
       {
         headers: {
@@ -41,7 +43,8 @@ export const aiMockInterviewAPI = async (formData) => {
 export const aiSkillAssessmentAPI= async (formData) => {
   try {
     const response = await axios.post(
-      `http://localhost:8090/api/v1/googleai/ai-skill-assessment`,
+      // `http://localhost:8090/api/v1/googleai/ai-skill-assessment`,
+      "https://jobgenius-6odl.onrender.com/api/v1/googleai/ai-skill-assessment",
       formData,
       {
         headers: {
@@ -60,7 +63,8 @@ export const aiSkillAssessmentAPI= async (formData) => {
 export const analyseJobAPI = async (formData) => {
   try {
     const response = await axios.post(
-      `http://localhost:8090/api/v1/googleai/analyse-job`,
+      // `http://localhost:8090/api/v1/googleai/analyse-job`,
+      "https://jobgenius-6odl.onrender.com/api/v1/googleai/analyse-job",
       formData,
       {
         headers: {
